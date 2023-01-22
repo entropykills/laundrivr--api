@@ -19,26 +19,9 @@ class PaymentApiService() : ApiService() {
         return listOf(Route("/payment", HttpMethod.POST) { ctx -> handler(ctx) })
     }
 
-    data class PaymentWebhookPayload(
-        @JsonProperty("data") val data: PaymentWebhookData
-    )
-
-    data class PaymentWebhookData(
-        @JsonProperty("object") val `object`: PaymentWebhookObject
-    )
-
-    data class PaymentWebhookObject(
-        @JsonProperty("payment") val payment: PaymentWebhookPayment
-    )
-
-    data class PaymentWebhookPayment(
-        @JsonProperty("order_id") val orderId: String
-    )
-
     @Serializable
     data class OrderResult(
         @SerialName("square_order_id") val orderId: String,
-        @SerialName("original_square_customer_id") val customerId: String,
         @SerialName("user_id") val userId: String,
         @SerialName("created_at") val createdAt: String,
     )
