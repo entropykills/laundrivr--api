@@ -3,11 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.7.21"
     kotlin("plugin.serialization") version "1.7.20"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
     application
 }
 
-group = "com.laundrivr"
-version = "1.0-SNAPSHOT"
+group = "com.laundrivr.api"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -15,6 +16,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation(kotlin("stdlib-jdk8"))
     implementation("com.squareup:square:24.0.0.20220921")
     implementation("io.github.jan-tennert.supabase:functions-kt-jvm:0.7.5")
     implementation("io.github.jan-tennert.supabase:postgrest-kt-jvm:0.7.5")
@@ -34,5 +36,10 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("com.laundrivr.api.MainKt")
+}
+
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveClassifier.set("")
+    archiveVersion.set(project.version.toString())
 }

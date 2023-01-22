@@ -16,7 +16,7 @@ class PaymentApiService() : ApiService() {
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun routes(): List<Route> {
-        return listOf(Route("/payment/webhook", HttpMethod.POST) { ctx -> handler(ctx) })
+        return listOf(Route("/payment", HttpMethod.POST) { ctx -> handler(ctx) })
     }
 
     data class PaymentWebhookPayload(
@@ -74,6 +74,7 @@ class PaymentApiService() : ApiService() {
         }
 
         if (orderResult == null) {
+            println("Order not found in pending transactions.")
             ctx.result("Order not found in pending transactions.").status(500)
             return
         }
@@ -81,6 +82,7 @@ class PaymentApiService() : ApiService() {
         val orderResultObject = try {
             orderResult.decodeSingle<OrderResult>()
         } catch (e: Exception) {
+            println("Error decoding order result: $e")
             ctx.result("Error decoding order result.").status(500)
             return
         }
@@ -101,6 +103,7 @@ class PaymentApiService() : ApiService() {
         }
 
         if ((functionResult == null) || (functionResult.status != HttpStatusCode.OK)) {
+            println("Error calling function.")
             ctx.result("Error calling function.").status(500)
             return
         }

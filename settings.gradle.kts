@@ -1,3 +1,3 @@
 
-rootProject.name = "kotlin-api"
+rootProject.name = "laundrivr-api"
 
