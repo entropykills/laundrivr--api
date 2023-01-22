@@ -1,3 +1,3 @@
 
-rootProject.name = "laundrivrapi"
+rootProject.name = "kotlin-api"
 

@@ -1,4 +1,6 @@
-package service
+package com.laundrivr.api.service
+
+import com.laundrivr.api.service.ApiService
 
 class RootApiService(): ApiService() {
 

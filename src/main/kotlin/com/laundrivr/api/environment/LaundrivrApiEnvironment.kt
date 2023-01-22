@@ -1,4 +1,4 @@
-package environment
+package com.laundrivr.api.environment
 
 import io.github.cdimascio.dotenv.Dotenv
 

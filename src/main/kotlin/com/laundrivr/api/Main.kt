@@ -1,6 +1,11 @@
+package com.laundrivr.api
+
+import com.laundrivr.api.environment.LaundrivrApiEnvironment
+import com.laundrivr.api.service.ApiService
+import com.laundrivr.api.service.PaymentApiService
+import com.laundrivr.api.service.RootApiService
 import com.squareup.square.Environment
 import com.squareup.square.SquareClient
-import environment.LaundrivrApiEnvironment
 import io.github.cdimascio.dotenv.dotenv
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
@@ -10,9 +15,6 @@ import io.github.jan.supabase.gotrue.gotrue
 import io.github.jan.supabase.postgrest.Postgrest
 import io.javalin.Javalin
 import kotlinx.coroutines.runBlocking
-import service.ApiService
-import service.PaymentApiService
-import service.RootApiService
 
 fun main(args: Array<String>) {
     // require '-t' (for target environment) of production or development

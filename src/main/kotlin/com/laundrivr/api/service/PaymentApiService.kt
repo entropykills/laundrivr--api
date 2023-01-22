@@ -1,4 +1,4 @@
-package service
+package com.laundrivr.api.service
 
 import com.beust.klaxon.Parser
 import com.fasterxml.jackson.annotation.JsonProperty

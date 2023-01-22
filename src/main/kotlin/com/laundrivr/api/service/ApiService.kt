@@ -1,4 +1,4 @@
-package service
+package com.laundrivr.api.service
 
 import com.squareup.square.SquareClient
 import io.github.jan.supabase.SupabaseClient
