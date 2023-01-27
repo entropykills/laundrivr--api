@@ -1,7 +1,7 @@
-package com.laundrivr.api.service
+package com.laundrivr.api.service.payment
 
 import com.beust.klaxon.Parser
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.laundrivr.api.service.ApiService
 import io.github.jan.supabase.functions.functions
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.PostgrestResult

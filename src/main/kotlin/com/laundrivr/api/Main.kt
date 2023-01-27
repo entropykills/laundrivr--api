@@ -2,7 +2,7 @@ package com.laundrivr.api
 
 import com.laundrivr.api.environment.LaundrivrApiEnvironment
 import com.laundrivr.api.service.ApiService
-import com.laundrivr.api.service.PaymentApiService
+import com.laundrivr.api.service.payment.PaymentApiService
 import com.laundrivr.api.service.RootApiService
 import com.squareup.square.Environment
 import com.squareup.square.SquareClient
