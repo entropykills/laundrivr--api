@@ -14,6 +14,8 @@ class LaundrivrApiEnvironment(dotenv: Dotenv) {
     val squareAccessToken = dotenv.get("SQUARE_ACCESS_TOKEN")
     val squareLocationId = dotenv.get("SQUARE_LOCATION_ID")
     val squareEnvironment = dotenv.get("SQUARE_ENVIRONMENT")
+    val squareSignatureKey = dotenv.get("SQUARE_SIGNATURE_KEY")
+    val squareWebhookPaymentUrl = dotenv.get("SQUARE_WEBHOOK_PAYMENT_URL")
 
     val port = dotenv.get("PORT").toInt()
 }

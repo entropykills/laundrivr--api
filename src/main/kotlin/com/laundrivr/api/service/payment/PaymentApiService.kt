@@ -2,6 +2,7 @@ package com.laundrivr.api.service.payment
 
 import com.beust.klaxon.Parser
 import com.laundrivr.api.service.ApiService
+import com.squareup.square.utilities.WebhooksHelper
 import io.github.jan.supabase.functions.functions
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.PostgrestResult
@@ -27,10 +28,22 @@ class PaymentApiService() : ApiService() {
     )
 
     private fun handler(ctx: Context) {
+        val signatureHeader = ctx.headerMap()["x-square-hmacsha256-signature"]
+        val signatureKey = this.environment?.squareSignatureKey ?: throw Exception("Signature key not found.")
+        val webhookUrl = this.environment?.squareWebhookPaymentUrl ?: throw Exception("Webhook URL not found.")
+        val bodyAsString = ctx.body()
+
+        val isValid = WebhooksHelper.isValidWebhookEventSignature(bodyAsString, signatureHeader, signatureKey, webhookUrl)
+
+        if (!isValid) {
+            throw Exception("Invalid signature.")
+        }
+
         var orderId: String? = null
+        val inputStream = bodyAsString.byteInputStream()
 
         try {
-            val payload: com.beust.klaxon.JsonObject = Parser.default().parse(ctx.bodyInputStream()) as com.beust.klaxon.JsonObject
+            val payload: com.beust.klaxon.JsonObject = Parser.default().parse(inputStream) as com.beust.klaxon.JsonObject
             payload["data"]?.let { data ->
                 data as com.beust.klaxon.JsonObject
                 data["object"]?.let { obj ->
@@ -90,5 +103,7 @@ class PaymentApiService() : ApiService() {
             ctx.result("Error calling function.").status(500)
             return
         }
+
+        println("Payment successful.")
     }
 }

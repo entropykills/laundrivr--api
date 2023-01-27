@@ -80,6 +80,6 @@ class LaundrivrApiService(private val apiEnvironment: LaundrivrApiEnvironment) {
             PaymentApiService()
         )
 
-        services.forEach { it.register(app, squareClient, supabaseClient) }
+        services.forEach { it.register(app, squareClient, supabaseClient, apiEnvironment) }
     }
 }
