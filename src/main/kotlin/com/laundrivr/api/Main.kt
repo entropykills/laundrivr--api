@@ -45,26 +45,20 @@ fun main(args: Array<String>) {
 
 class LaundrivrApiService(private val apiEnvironment: LaundrivrApiEnvironment) {
 
-    private val squareClient: SquareClient
-    private val supabaseClient: SupabaseClient
+    private val squareClient: SquareClient = SquareClient.Builder()
+        .environment(Environment.valueOf(apiEnvironment.squareEnvironment.uppercase()))
+        .accessToken(apiEnvironment.squareAccessToken)
+        .build()
+    private val supabaseClient: SupabaseClient = createSupabaseClient(
+        supabaseUrl = apiEnvironment.supabaseUrl,
+        supabaseKey = apiEnvironment.supabaseServiceRoleKey
+    ) {
+        install(Functions)
+        install(Postgrest)
+        install(GoTrue)
+    }
 
     init {
-        // create the square client
-        squareClient = SquareClient.Builder()
-            .environment(Environment.valueOf(apiEnvironment.squareEnvironment.uppercase()))
-            .accessToken(apiEnvironment.squareAccessToken)
-            .build()
-
-        // create the supabase client
-        supabaseClient = createSupabaseClient(
-            supabaseUrl = apiEnvironment.supabaseUrl,
-            supabaseKey = apiEnvironment.supabaseServiceRoleKey
-        ) {
-            install(Functions)
-            install(Postgrest)
-            install(GoTrue)
-        }
-
         runBlocking {
             supabaseClient.gotrue.importAuthToken(apiEnvironment.supabaseServiceRoleKey)
         }
