@@ -4,6 +4,7 @@ import com.laundrivr.api.environment.LaundrivrApiEnvironment
 import com.laundrivr.api.service.ApiService
 import com.laundrivr.api.service.payment.PaymentApiService
 import com.laundrivr.api.service.RootApiService
+import com.laundrivr.api.service.v1.V1CheckUpdateApiService
 import com.squareup.square.Environment
 import com.squareup.square.SquareClient
 import io.github.cdimascio.dotenv.dotenv
@@ -77,7 +78,8 @@ class LaundrivrApiService(private val apiEnvironment: LaundrivrApiEnvironment) {
 
         val services: List<ApiService> = listOf(
             RootApiService(),
-            PaymentApiService()
+            PaymentApiService(),
+            V1CheckUpdateApiService()
         )
 
         services.forEach { it.register(app, squareClient, supabaseClient, apiEnvironment) }

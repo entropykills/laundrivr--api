@@ -18,7 +18,6 @@ abstract class ApiService() {
 
     class Route(val path: String, val method: HttpMethod, val handler: (Context) -> Unit)
 
-
     fun register(app: Javalin, squareClient: SquareClient, supabaseClient: SupabaseClient, environment: LaundrivrApiEnvironment) {
         this.squareClient = squareClient
         this.supabaseClient = supabaseClient
