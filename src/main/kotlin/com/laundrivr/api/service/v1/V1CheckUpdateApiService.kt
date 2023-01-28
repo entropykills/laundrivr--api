@@ -8,6 +8,8 @@ import io.ktor.http.*
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class V1CheckUpdateApiService() : ApiService() {
 
@@ -49,7 +51,8 @@ class V1CheckUpdateApiService() : ApiService() {
             updateUrl = updateUrl
         )
 
-        // return the response, serialized as json
-        ctx.json(response)
+        ctx.contentType("application/json")
+        val responseString = Json.encodeToString(response);
+        ctx.json(responseString)
     }
 }
